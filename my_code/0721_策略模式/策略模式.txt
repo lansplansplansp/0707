@@ -1,0 +1,116 @@
+策略模式实现思路
+
+MiniDuckSimulator.hpp
+Duck类
+1、策略模式推荐采用组合，不推荐继承，因为继承耦合性增加
+2、使用了FlyBehavior,QuackBehavior两个智能指针表示飞行和鸣叫行为(两个类的类型智能指针)，是私有类型
+3、构造函数获得这两个行为，并用assrt()判空
+4、虚类型的析构，以上两行都在protected类型里
+5、设定飞行行为setFlyBehavior传FlyBehavior类型指针fb,先判空，再将fb的智能指针类型auto_ptr<FlyBehavior>放入飞行行为:_flyBehavior
+6、	   鸣叫	   setQuackBehavior					  qb
+7、const函数performFly无参{飞行智能类调用fly();}
+8、const函数performQuack无参
+9、const函数swim显示All duck float,even decoys!
+10、虚类型的display还是不能改的函数
+
+FlyBehavior.hpp
+FlyBehavior类包含"MiniDuckSimulator.hpp"
+1、public类型里，作为接口的析构、fly const的两个虚函数，析构要定义
+
+FlyRocketPowered.cpp
+俯冲
+FlyRocketPowered类包含"MiniDuckSimulator.hpp" 公有继承FlyBehavior
+1、公有类型的fly const显示I'm fly with a rocket
+
+FlyNoway.hpp
+不飞
+FlyNoway类包含"MiniDuckSimulator.hpp"公有继承FlyBehavior
+1、公有类型的fly const显示I can't fly
+
+FlyWithWings.hpp
+翱翔
+FlyWithWings类包含"MiniDuckSimulator.hpp"公有继承FlyBehavior
+1、公有类型的fly const显示I'm flying
+
+QuackBehavior.hpp
+QuackBehavior类包含"MiniDuckSimulator.hpp"
+1、public类型里，作为接口的析构、quack const的两个虚函数，析构要定义
+
+Quack.hpp
+鸣叫
+Quack类包含"MiniDuckSimulator.hpp"公有继承QuackBehavior
+1、公有类型quack() const显示Quack
+
+Squack.hpp
+
+Squack类包含"MiniDuckSimulator.hpp"公有继承QuackBehavior
+1、公有类型quack() const显示Squack
+
+MuteQuack.hpp
+
+MuteQuack类包含"MiniDuckSimulator.hpp"公有继承QuackBehavior
+1、公有类型quack() const显示Silence
+
+FakeQuack.hpp
+
+FakeQuack类包含"MiniDuckSimulator.hpp"公有继承QuackBehavior
+1、公有类型quack() const显示Qwak
+
+
+
+MallardDuck.hpp
+
+MallardDuck类包含"MiniDuckSimulator.hpp"公有继承Duck
+1、构造函数取Duck初始化new FlyWithWings()和new Quack()
+2、const类型的display()显示I'm a real Mallard duck
+
+RubberDuck.hpp
+
+RubberDuck类包含"MiniDuckSimulator.hpp"公有继承Duck
+1、构造函数取Duck初始化new FlyNoway()和new Squack()
+2、const类型的display()显示I'm a rubber duck
+
+RedHead.hpp
+
+DedHeadk类包含"MiniDuckSimulator.hpp"公有继承Duck
+1、构造函数取Duck初始化new FlyWithWings()和new Quack()
+2、const类型的display()显示I'm a real Red Headed duck
+
+ModelDuck.hpp
+
+ModelDuck类包含"MiniDuckSimulator.hpp"公有继承Duck
+1、构造函数取Duck初始化new FlyNoway()和new FakeQuack()
+2、const类型的display()显示I'm a model duck
+
+DecoyDuck.hpp
+
+ModelDuck类包含"MiniDuckSimulator.hpp"公有继承Duck
+1、构造函数取Duck初始化new FlyNoway()和new MuteQuack()
+2、const类型的display()显示I'm a duck Decoy
+
+MiniDuckSimulator.cpp
+包含"MiniDuckSimulator.hpp"
+1、定义智能指针MallardDuck、RubberDuck、DecoyDuck、ModelDuck的小写字母类型(new 对应类)变量
+2、这些变量调用const函数performFly，const函数performQuack无参，设定飞行行为setFlyBehavior传FlyBehavior类型
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

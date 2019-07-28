@@ -1,0 +1,42 @@
+父类多态的析构函数必须是虚构的析构函数
+
+功能需求
+	输出当前天气
+	输出天气预报
+	输出气象统计
+功能实现
+	Currentcondition.h
+		更新、打印当前天气
+	Forecastcondition.h
+		更新、打印预报天气
+观察者Observer接口
+	虚拟析构函数且定义析构函数
+	还需要的函数接口
+		updata()三个float
+公有继承Observer:Currentcondition,Forecastcondition		
+
+目标Subject接口（用了Observer类型变量，需要前置声明class Observer）
+	虚拟析构函数且定义析构函数
+	还需要的虚函数接口
+		注册、注销、修改（Observer *o）需要Observer.h
+公有继承Subject:WeatherData(还要包含Observer、Subject两个头文件、声明Subject头文件)
+	调用功能实现头文件
+	实现注册、注销、修改
+	registerObserver()
+	removeObserver()
+	notifyObserver()
+	获得三个数据
+		SetWeatherData( , , )
+	一个Subject *的list链表存放修改函数放入的注册
+	三个私有变量m_temprature、m_humidity、m_pressure
+	两个私有功能实现类型指针变量Currentconditon *Currentcondition;Forecastcondition *Forecastcondition
+main.cpp
+	Currentcondition Current;
+	Forecastcondition Forecast;
+	
+	WeatherData.Register(Current);
+	WeatherData.Register(Forecast);
+	
+	WeatherData.SetWeatherData(填入获得数据);
+	return 0;
+		
